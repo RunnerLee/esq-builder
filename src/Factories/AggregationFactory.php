@@ -10,13 +10,13 @@ namespace Runner\EsqBuilder\Factories;
 class AggregationFactory extends AbstractFactory
 {
     protected static $clauses = [
-        'AdjacencyMatrix' => 'Bucketing',
-        'AutoDateHistogram' => 'Bucketing',
-        'Children' => 'Bucketing',
-        'DateHistogram' => 'Bucketing',
-        'DateRange' => 'Bucketing',
+        'AdjacencyMatrix'    => 'Bucketing',
+        'AutoDateHistogram'  => 'Bucketing',
+        'Children'           => 'Bucketing',
+        'DateHistogram'      => 'Bucketing',
+        'DateRange'          => 'Bucketing',
         'DiversifiedSampler' => 'Bucketing',
-        'Terms' => 'Bucketing',
+        'Terms'              => 'Bucketing',
     ];
 
     protected static $namespace = 'ONGR\\ElasticsearchDSL\\Aggregation';
