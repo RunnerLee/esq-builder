@@ -16,6 +16,18 @@ class AggregationFactory extends AbstractFactory
         'DateHistogram'      => 'Bucketing',
         'DateRange'          => 'Bucketing',
         'DiversifiedSampler' => 'Bucketing',
+        'GeoDistance'        => 'Bucketing',
+        'GeoHashGrid'        => 'Bucketing',
+        'Global'             => 'Bucketing',
+        'Histogram'          => 'Bucketing',
+        'Ipv4Range'          => 'Bucketing',
+        'Missing'            => 'Bucketing',
+        'Nested'             => 'Bucketing',
+        'Range'              => 'Bucketing',
+        'ReverseNested'      => 'Bucketing',
+        'Sampler'            => 'Bucketing',
+        'SignificantTerms'   => 'Bucketing',
+        'SignificantText'    => 'Bucketing',
         'Terms'              => 'Bucketing',
     ];
 
