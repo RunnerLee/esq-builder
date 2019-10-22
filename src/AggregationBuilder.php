@@ -36,9 +36,20 @@ class AggregationBuilder implements BuilderInterface
      */
     public function add($type, $bucket, array $arguments = [])
     {
+        $callback = null;
+
+        if (2 === count($arguments) && is_array($arguments[0]) && is_callable($arguments[1])) {
+            $callback = $arguments[1];
+            $arguments = $arguments[0];
+        }
+
         array_unshift($arguments, $bucket);
 
-        $this->endpoint->add(AggregationFactory::make($type, $arguments), $bucket);
+        $this->endpoint->add($agg = AggregationFactory::make($type, $arguments), $bucket);
+
+        if ($callback) {
+            call_user_func($callback, $agg);
+        }
 
         return $this;
     }
