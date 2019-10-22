@@ -22,22 +22,22 @@ class SearchBuilder
     protected $builders = [];
 
     protected $clauses = [
-        QueryEndpoint::NAME => QueryBuilder::class,
+        QueryEndpoint::NAME        => QueryBuilder::class,
         AggregationsEndpoint::NAME => AggregationBuilder::class,
     ];
 
     protected $parameters = [
-        'from' => null,
-        'size' => null,
-        'source' => null,
-        'storedFields' => null,
-        'scriptFields' => null,
+        'from'           => null,
+        'size'           => null,
+        'source'         => null,
+        'storedFields'   => null,
+        'scriptFields'   => null,
         'docValueFields' => null,
-        'explain' => null,
-        'version' => null,
-        'indicesBoost' => null,
-        'minScore' => null,
-        'searchAfter' => null,
+        'explain'        => null,
+        'version'        => null,
+        'indicesBoost'   => null,
+        'minScore'       => null,
+        'searchAfter'    => null,
         'trackTotalHits' => null,
     ];
 
@@ -84,17 +84,17 @@ class SearchBuilder
         )));
 
         $params = [
-            'from' => 'from',
-            'size' => 'size',
-            'source' => '_source',
-            'storedFields' => 'stored_fields',
-            'scriptFields' => 'script_fields',
+            'from'           => 'from',
+            'size'           => 'size',
+            'source'         => '_source',
+            'storedFields'   => 'stored_fields',
+            'scriptFields'   => 'script_fields',
             'docValueFields' => 'docvalue_fields',
-            'explain' => 'explain',
-            'version' => 'version',
-            'indicesBoost' => 'indices_boost',
-            'minScore' => 'min_score',
-            'searchAfter' => 'search_after',
+            'explain'        => 'explain',
+            'version'        => 'version',
+            'indicesBoost'   => 'indices_boost',
+            'minScore'       => 'min_score',
+            'searchAfter'    => 'search_after',
             'trackTotalHits' => 'track_total_hits',
         ];
 
