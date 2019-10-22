@@ -1,0 +1,20 @@
+{
+    "name": "runner/esq-builder",
+    "description": "",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "RunnerLee",
+            "email": "runnerleer@gmail.com"
+        }
+    ],
+    "require": {
+        "ongr/elasticsearch-dsl": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Runner\\EsqBuilder\\": "src/"
+        }
+    }
+}
