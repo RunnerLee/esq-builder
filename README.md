@@ -1,9 +1,11 @@
 # Esq Builder
 
+基于 [ongr/elasticsearch-dsl](https://github.com/ongr-io/ElasticsearchDSL) 做的封装。
+
 ### Usage
 
 ```php
-require __DIR__ . '/vendor/autoload.php';
+<?php
 
 use Runner\EsqBuilder\AggregationBuilder;
 use Runner\EsqBuilder\QueryBuilder;
@@ -26,66 +28,17 @@ $search->aggregations()
             ])
             ->shouldTerm('from', 10086)
             ->shouldTerm('to', 10086);
-    });
+    })
+    ->range('aaa', 'created_at', [
+        [
+            'from' => 1,
+            'to' => 100,
+        ]
+    ]);
+
+$search->setSize(10);
+$search->setFrom(10);
 
 echo json_encode($search->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 echo "\n";
-```
-
-Output:
-
-```json
-{
-    "query": {
-        "bool": {
-            "should": [
-                {
-                    "term": {
-                        "from": 123456
-                    }
-                },
-                {
-                    "term": {
-                        "to": 123456
-                    }
-                }
-            ]
-        }
-    },
-    "aggregations": {
-        "receiver": {
-            "terms": {
-                "field": "to"
-            }
-        },
-        "midnight_notice": {
-            "filter": {
-                "bool": {
-                    "must": [
-                        {
-                            "range": {
-                                "created_at": {
-                                    "gte": 1570721400,
-                                    "lte": 1570768200
-                                }
-                            }
-                        }
-                    ],
-                    "should": [
-                        {
-                            "term": {
-                                "from": 10086
-                            }
-                        },
-                        {
-                            "term": {
-                                "to": 10086
-                            }
-                        }
-                    ]
-                }
-            }
-        }
-    }
-}
 ```
