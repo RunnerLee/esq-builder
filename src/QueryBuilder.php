@@ -41,7 +41,7 @@ class QueryBuilder implements BuilderInterface
         return $this->endpoint;
     }
 
-    public function where($boolType, $type, ...$arguments): self
+    public function where($boolType, $type, array $arguments = []): self
     {
         if ('bool' === $type) {
             return $this->bool($arguments[0], $boolType);
@@ -149,7 +149,7 @@ class QueryBuilder implements BuilderInterface
 
         [$clause, $boolType] = $expression;
 
-        return $this->where($boolType, $clause, ...$arguments);
+        return $this->where($boolType, $clause, $arguments);
     }
 
     /**

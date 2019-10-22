@@ -27,7 +27,7 @@ abstract class AbstractFactory
         $name = ucfirst($name);
 
         if (!isset(static::$clauses[$name])) {
-            throw new \RuntimeException('query clause does not exist');
+            throw new \RuntimeException(sprintf('%s does not exist', $name));
         }
 
         $namespace = sprintf('%s\\%s', static::$namespace, ucfirst(static::$clauses[$name]));

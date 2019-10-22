@@ -30,11 +30,11 @@ class AggregationBuilder implements BuilderInterface
     /**
      * @param string $type
      * @param string $bucket
-     * @param mixed  ...$arguments
+     * @param array  $arguments
      *
      * @return $this
      */
-    public function add($type, $bucket, ...$arguments)
+    public function add($type, $bucket, array $arguments = [])
     {
         array_unshift($arguments, $bucket);
 
@@ -145,7 +145,7 @@ class AggregationBuilder implements BuilderInterface
 
         $bucket = array_shift($arguments);
 
-        return $this->add($name, $bucket, ...$arguments);
+        return $this->add($name, $bucket, $arguments);
     }
 
     /**
