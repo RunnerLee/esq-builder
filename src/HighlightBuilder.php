@@ -31,11 +31,17 @@ class HighlightBuilder implements BuilderInterface
      */
     protected $highlight;
 
-    public function __construct()
+    /**
+     * @var bool
+     */
+    protected $inNesting = false;
+
+    public function __construct($inNesting = false)
     {
         $this->highlight = new Highlight();
         $this->endpoint = new HighlightEndpoint();
         $this->endpoint->add($this->highlight);
+        $this->inNesting = $inNesting;
     }
 
     /**
@@ -63,9 +69,13 @@ class HighlightBuilder implements BuilderInterface
      */
     public function addField($name, callable $callback = null)
     {
+        if ($this->inNesting) {
+            throw new \LogicException('Highlight fields are not nestable');
+        }
+
         $params = [];
         if ($callback) {
-            call_user_func($callback, $builder = new static());
+            call_user_func($callback, $builder = new static(true));
             $params = $builder->toArray();
         }
 
