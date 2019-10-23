@@ -22,7 +22,32 @@ use Runner\EsqBuilder\Factories\QueryFactory;
 /**
  * Class QueryBuilder.
  *
- * @method QueryBuilder term($field, $value, array $parameters = [])
+ * @method QueryBuilder commonTerms(string $field, string $query, array $parameters = [])
+ * @method QueryBuilder matchPhrase(string $field, string $query, array $parameters = [])
+ * @method QueryBuilder matchPhrasePrefix(string $field, string $query, array $parameters = [])
+ * @method QueryBuilder match(string $field, string $query, array $parameters = [])
+ * @method QueryBuilder multiMatch(array $fields, string $query, array $parameters = [])
+ * @method QueryBuilder queryString(string $query, array $parameters = [])
+ * @method QueryBuilder simpleQueryString(string $query, array $parameters = [])
+ * @method QueryBuilder geoBoundingBox(string $field, array $values, array $parameters = [])
+ * @method QueryBuilder geoDistance(string $field, string $distance, $location, array $parameters = [])
+ * @method QueryBuilder geoPolygon(string $field, array $points = [], array $parameters = [])
+ * @method QueryBuilder geoShape(array $parameters = [])
+ * @method QueryBuilder parentId(string $parentId, string $childType, array $parameters = [])
+ * @method QueryBuilder moreLikeThis(string $like, array $parameters = [])
+ * @method QueryBuilder script(string $script, array $parameters = [])
+ * @method QueryBuilder template(string $file = null, string $inline = null, array $params = [])
+ * @method QueryBuilder exists(string $field)
+ * @method QueryBuilder fuzzy(string $field, string $value, array $parameters = [])
+ * @method QueryBuilder ids(array $values, array $parameters = [])
+ * @method QueryBuilder prefix(string $field, string $value, array $parameters = [])
+ * @method QueryBuilder range(string $field, array $parameters = [])
+ * @method QueryBuilder regexp(string $field, string $regexpValue, array $parameters = [])
+ * @method QueryBuilder term(string $field, $value, array $parameters = [])
+ * @method QueryBuilder terms(string $field, array $terms, array $parameters = [])
+ * @method QueryBuilder type(string $type)
+ * @method QueryBuilder wildcard(string $field, string $value, array $parameters = [])
+ * @method QueryBuilder matchAll(array $parameters = [])
  */
 class QueryBuilder implements BuilderInterface
 {

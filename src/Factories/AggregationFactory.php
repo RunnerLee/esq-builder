@@ -9,7 +9,7 @@ namespace Runner\EsqBuilder\Factories;
 
 class AggregationFactory extends AbstractFactory
 {
-    protected static $clauses = [
+    public static $clauses = [
         'AdjacencyMatrix'    => 'Bucketing',
         'AutoDateHistogram'  => 'Bucketing',
         'Children'           => 'Bucketing',

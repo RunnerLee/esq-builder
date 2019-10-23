@@ -9,19 +9,19 @@ namespace Runner\EsqBuilder\Factories;
 
 class QueryFactory extends AbstractFactory
 {
-    protected static $clauses = [
-        'Common'            => 'FullText',
+    public static $clauses = [
+        'CommonTerms'       => 'FullText',
         'MatchPhrase'       => 'FullText',
         'MatchPhrasePrefix' => 'FullText',
         'Match'             => 'FullText',
         'MultiMatch'        => 'FullText',
         'QueryString'       => 'FullText',
-        'SimpleQuery'       => 'FullText',
+        'SimpleQueryString' => 'FullText',
 
         'GeoBoundingBox' => 'Geo',
-        'GetDistance'    => 'Geo',
-        'GetPolygon'     => 'Geo',
-        'GetShape'       => 'Geo',
+        'GeoDistance'    => 'Geo',
+        'GeoPolygon'     => 'Geo',
+        'GeoShape'       => 'Geo',
 
         'ParentId' => 'Joining',
 

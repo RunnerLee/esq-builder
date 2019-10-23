@@ -15,6 +15,59 @@ use ONGR\ElasticsearchDSL\SearchEndpoint\SearchEndpointInterface;
 use Runner\EsqBuilder\Contracts\BuilderInterface;
 use Runner\EsqBuilder\Factories\AggregationFactory;
 
+/**
+ * Class AggregationBuilder
+ * @package Runner\EsqBuilder
+ *
+ * @method QueryBuilder adjacencyMatrix(string $name, BuilderInterface[] $filters = [])
+ * @method QueryBuilder autoDateHistogram(string $name, string $field, int $buckets = null, string $format = null)
+ * @method QueryBuilder children(string $name, string $children = null)
+ * @method QueryBuilder dateHistogram(string $name, string $field = null, string $interval = null, $format = null)
+ * @method QueryBuilder dateRange(string $name, string $field = null, string $format = null, array $ranges = [], bool $keyed = false)
+ * @method QueryBuilder diversifiedSampler(string $name, string $field = null, int $shardSize = null)
+ * @method QueryBuilder geoDistance(string $name, string $field = null, $origin = null, array $ranges = [], string $unit = null, string $distanceType = null)
+ * @method QueryBuilder geoHashGrid(string $name, string $field = null, int $precision = null, int $size = null, int $shardSize = null)
+ * @method QueryBuilder global(string $name)
+ * @method QueryBuilder histogram(string $name, string $field = null, int $interval = null, int $minDocCount = null, string $orderMode = null, string $orderDirection = 'asc', int $extendedBoundsMin = null, int $extendedBoundsMax = null, bool $keyed = null)
+ * @method QueryBuilder ipv4Range(string $name, string $field = null, array $ranges = [])
+ * @method QueryBuilder missing(string $name, string $field = null)
+ * @method QueryBuilder nested(string $name, string $path = null)
+ * @method QueryBuilder range(string $name, string $field = null, array $ranges = [], bool $keyed = false)
+ * @method QueryBuilder reverseNested(string $name, string $path = null)
+ * @method QueryBuilder sampler(string $name, string $field = null, int $shardSize = null)
+ * @method QueryBuilder significantTerms(string $name, string $field = null, string $script = null)
+ * @method QueryBuilder significantText(string $name, string $field = null, string $script = null)
+ * @method QueryBuilder terms(string $name, string $field = null, string $script = null)
+ * @method QueryBuilder avg(string $name, string $field = null, string $script = null)
+ * @method QueryBuilder cardinality(string $name)
+ * @method QueryBuilder extendedStats(string $name, string $field = null, int $sigma = null, string $script = null)
+ * @method QueryBuilder geoBounds(string $name, string $field = null, bool $wrapLongitude = true)
+ * @method QueryBuilder geoCentroid(string $name, string $field = null)
+ * @method QueryBuilder max(string $name, string $field = null, string $script = null)
+ * @method QueryBuilder min(string $name, string $field = null, string $script = null)
+ * @method QueryBuilder percentileRanks(string $name, string $field = null, array $values = null, string $script = null, int $compression = null)
+ * @method QueryBuilder percentiles(string $name, string $field = null, array $percents = null, string $script = null, int $compression = null)
+ * @method QueryBuilder scriptedMetric(string $name, $initScript = null, $mapScript = null, $combineScript = null, $reduceScript = null)
+ * @method QueryBuilder stats(string $name, string $field = null, string $script = null)
+ * @method QueryBuilder sum(string $name, string $field = null, string $script = null)
+ * @method QueryBuilder topHits(string $name, $size = null, $from = null, $sort = null)
+ * @method QueryBuilder valueCount(string $name, string $field = null, string $script = null)
+ * @method QueryBuilder avgBucket(string $name, $bucketsPath = null)
+ * @method QueryBuilder bucketScript(string $name, array $bucketsPath, string $script = null)
+ * @method QueryBuilder bucketSelector(string $name, array $bucketsPath, string $script = null)
+ * @method QueryBuilder bucketSort(string $name, string $bucketsPath = null)
+ * @method QueryBuilder cumulativeSum(string $name, $bucketsPath = null)
+ * @method QueryBuilder derivative(string $name, $bucketsPath = null)
+ * @method QueryBuilder extendedStatsBucket(string $name, $bucketsPath = null)
+ * @method QueryBuilder maxBucket(string $name, $bucketsPath = null)
+ * @method QueryBuilder minBucket(string $name, $bucketsPath = null)
+ * @method QueryBuilder movingAverage(string $name, $bucketsPath = null)
+ * @method QueryBuilder movingFunction(string $name, $bucketsPath = null)
+ * @method QueryBuilder percentilesBucket(string $name, $bucketsPath = null)
+ * @method QueryBuilder serialDifferencing(string $name, $bucketsPath = null)
+ * @method QueryBuilder statsBucket(string $name, $bucketsPath = null)
+ * @method QueryBuilder sumBucket(string $name, $bucketsPath = null)
+ */
 class AggregationBuilder implements BuilderInterface
 {
     /**
