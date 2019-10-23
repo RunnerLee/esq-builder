@@ -8,6 +8,7 @@
 namespace Runner\EsqBuilder;
 
 use ONGR\ElasticsearchDSL\SearchEndpoint\AggregationsEndpoint;
+use ONGR\ElasticsearchDSL\SearchEndpoint\HighlightEndpoint;
 use ONGR\ElasticsearchDSL\SearchEndpoint\QueryEndpoint;
 use Runner\EsqBuilder\Contracts\BuilderInterface;
 
@@ -31,13 +32,20 @@ use Runner\EsqBuilder\Contracts\BuilderInterface;
  */
 class SearchBuilder
 {
+    /**
+     * @var BuilderInterface[]
+     */
     protected $builders = [];
 
     protected $clauses = [
-        QueryEndpoint::NAME        => QueryBuilder::class,
+        QueryEndpoint::NAME => QueryBuilder::class,
         AggregationsEndpoint::NAME => AggregationBuilder::class,
+        HighlightEndpoint::NAME => HighlightBuilder::class,
     ];
 
+    /**
+     * @var array
+     */
     protected $parameters = [
         'from'           => null,
         'size'           => null,
