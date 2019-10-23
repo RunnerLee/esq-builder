@@ -28,7 +28,7 @@ abstract class AbstractFactory implements FactoryInterface
     protected static $suffix = '';
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function has($name): bool
     {
@@ -36,7 +36,7 @@ abstract class AbstractFactory implements FactoryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function make($name, array $arguments = []): BuilderInterface
     {
