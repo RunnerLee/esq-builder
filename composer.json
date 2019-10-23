@@ -19,6 +19,7 @@
     },
     "require-dev": {
         "symfony/var-dumper": "^4.3",
-        "phpdocumentor/reflection-docblock": "^4.3"
+        "phpdocumentor/reflection-docblock": "^4.3",
+        "elasticsearch/elasticsearch": "^7.0"
     }
 }

@@ -17,6 +17,7 @@ use Runner\EsqBuilder\Contracts\BuilderInterface;
  *
  * @method QueryBuilder       query()
  * @method AggregationBuilder aggregations()
+ * @method HighlightBuilder highlight()
  * @method SearchBuilder setFrom($from)
  * @method SearchBuilder setSize($size)
  * @method SearchBuilder setSource($source)
