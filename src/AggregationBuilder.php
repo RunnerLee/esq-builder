@@ -7,6 +7,7 @@
 
 namespace Runner\EsqBuilder;
 
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\AdjacencyMatrixAggregation;
 use ONGR\ElasticsearchDSL\Aggregation\Bucketing\CompositeAggregation;
 use ONGR\ElasticsearchDSL\Aggregation\Bucketing\FilterAggregation;
 use ONGR\ElasticsearchDSL\Aggregation\Bucketing\FiltersAggregation;
@@ -18,7 +19,6 @@ use Runner\EsqBuilder\Factories\AggregationFactory;
 /**
  * Class AggregationBuilder.
  *
- * @method AggregationBuilder adjacencyMatrix(string $name, BuilderInterface[] $filters = [])
  * @method AggregationBuilder autoDateHistogram(string $name, string $field, int $buckets = null, string $format = null)
  * @method AggregationBuilder children(string $name, string $children = null)
  * @method AggregationBuilder dateHistogram(string $name, string $field = null, string $interval = null, $format = null)
@@ -151,7 +151,7 @@ class AggregationBuilder implements BuilderInterface
     /**
      * @param string $bucket
      * @param bool   $anonymous
-     * @param array  $callbacks
+     * @param callable[]  $callbacks
      *
      * @return $this
      */
@@ -162,6 +162,26 @@ class AggregationBuilder implements BuilderInterface
         foreach ($callbacks as $name => $callback) {
             call_user_func($callback, $builder = new QueryBuilder());
             $agg->addFilter($builder->getSearchEndpoint()->getBool(), $name);
+        }
+
+        $this->endpoint->add($agg, $bucket);
+
+        return $this;
+    }
+
+    /**
+     * @param string $bucket
+     * @param callable[] $callbacks
+     *
+     * @return $this
+     */
+    public function adjacencyMatrix($bucket, array $callbacks = [])
+    {
+        $agg = new AdjacencyMatrixAggregation($bucket);
+
+        foreach ($callbacks as $name => $callback) {
+            call_user_func($callback, $query = new QueryBuilder());
+            $agg->addFilter($name, $query->getSearchEndpoint()->getBool());
         }
 
         $this->endpoint->add($agg, $bucket);
