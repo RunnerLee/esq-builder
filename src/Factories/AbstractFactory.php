@@ -8,20 +8,36 @@
 namespace Runner\EsqBuilder\Factories;
 
 use ONGR\ElasticsearchDSL\BuilderInterface;
+use Runner\EsqBuilder\Contracts\FactoryInterface;
 
-abstract class AbstractFactory
+abstract class AbstractFactory implements FactoryInterface
 {
+    /**
+     * @var array
+     */
     protected static $clauses = [];
 
+    /**
+     * @var string
+     */
     protected static $namespace = '';
 
+    /**
+     * @var string
+     */
     protected static $suffix = '';
 
+    /**
+     * {@inheritDoc}
+     */
     public static function has($name): bool
     {
         return isset(static::$clauses[ucfirst($name)]);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public static function make($name, array $arguments = []): BuilderInterface
     {
         $name = ucfirst($name);
