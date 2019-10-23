@@ -67,8 +67,15 @@ $search = new SearchBuilder();
 $search
     ->aggregation()
     ->terms('aa', 'foo')
-    ->filter('bb', function (AggregationBuilder $builder) {
-        $builder->terms('cc', 'bar');
+    ->filter('bb', function (QueryBuilder $builder) {
+        $builder->match('foo', 'bar');
+    });
+
+// 嵌套桶, 需要先创建桶再调用嵌套
+$search
+    ->aggregation()
+    ->aggregation('aa', function (AggregationBuilder $builder) {
+        $builder->terms('bb', 'bar');
     });
 ```
 
