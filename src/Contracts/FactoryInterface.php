@@ -13,13 +13,15 @@ interface FactoryInterface
 {
     /**
      * @param string $name
+     *
      * @return bool
      */
-    public static function has($name): bool ;
+    public static function has($name): bool;
 
     /**
      * @param string $name
-     * @param array $arguments
+     * @param array  $arguments
+     *
      * @return BuilderInterface
      */
     public static function make($name, array $arguments = []): BuilderInterface;
