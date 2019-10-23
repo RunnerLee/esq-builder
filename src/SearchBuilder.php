@@ -38,9 +38,9 @@ class SearchBuilder
     protected $builders = [];
 
     protected $clauses = [
-        QueryEndpoint::NAME => QueryBuilder::class,
+        QueryEndpoint::NAME        => QueryBuilder::class,
         AggregationsEndpoint::NAME => AggregationBuilder::class,
-        HighlightEndpoint::NAME => HighlightBuilder::class,
+        HighlightEndpoint::NAME    => HighlightBuilder::class,
     ];
 
     /**

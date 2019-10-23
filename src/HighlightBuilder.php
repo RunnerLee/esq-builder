@@ -13,8 +13,8 @@ use ONGR\ElasticsearchDSL\SearchEndpoint\SearchEndpointInterface;
 use Runner\EsqBuilder\Contracts\BuilderInterface;
 
 /**
- * Class HighlightBuilder
- * @package Runner\EsqBuilder
+ * Class HighlightBuilder.
+ *
  * @method HighlightBuilder addParameter($name, $value)
  * @method HighlightBuilder setParameters(array $parameters)
  * @method HighlightBuilder setTags(array $preTags, array $postTags)
@@ -56,7 +56,7 @@ class HighlightBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $name
+     * @param string        $name
      * @param callable|null $callback
      *
      * @return $this
@@ -65,7 +65,7 @@ class HighlightBuilder implements BuilderInterface
     {
         $params = [];
         if ($callback) {
-            call_user_func($callback, $builder = new static);
+            call_user_func($callback, $builder = new static());
             $params = $builder->toArray();
         }
 
@@ -75,7 +75,7 @@ class HighlightBuilder implements BuilderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getSearchEndpoint(): SearchEndpointInterface
     {
@@ -83,7 +83,7 @@ class HighlightBuilder implements BuilderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function toArray()
     {
@@ -95,7 +95,7 @@ class HighlightBuilder implements BuilderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getType()
     {
