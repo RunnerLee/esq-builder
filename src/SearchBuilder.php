@@ -16,6 +16,18 @@ use Runner\EsqBuilder\Contracts\BuilderInterface;
  *
  * @method QueryBuilder       query()
  * @method AggregationBuilder aggregations()
+ * @method SearchBuilder setFrom($from)
+ * @method SearchBuilder setSize($size)
+ * @method SearchBuilder setSource($source)
+ * @method SearchBuilder setStoredFields($argument)
+ * @method SearchBuilder setScriptFields($argument)
+ * @method SearchBuilder setDocValueFields($argument)
+ * @method SearchBuilder setExplain($explain)
+ * @method SearchBuilder setVersion($version)
+ * @method SearchBuilder setIndicesBoost($argument)
+ * @method SearchBuilder setMinScore($score)
+ * @method SearchBuilder setSearchAfter($argument)
+ * @method SearchBuilder setTrackTotalHits($argument)
  */
 class SearchBuilder
 {
