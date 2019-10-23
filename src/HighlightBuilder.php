@@ -38,6 +38,7 @@ class HighlightBuilder implements BuilderInterface
 
     /**
      * HighlightBuilder constructor.
+     *
      * @param bool $inNesting
      */
     public function __construct($inNesting = false)
