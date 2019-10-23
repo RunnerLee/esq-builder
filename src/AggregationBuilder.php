@@ -16,8 +16,7 @@ use Runner\EsqBuilder\Contracts\BuilderInterface;
 use Runner\EsqBuilder\Factories\AggregationFactory;
 
 /**
- * Class AggregationBuilder
- * @package Runner\EsqBuilder
+ * Class AggregationBuilder.
  *
  * @method QueryBuilder adjacencyMatrix(string $name, BuilderInterface[] $filters = [])
  * @method QueryBuilder autoDateHistogram(string $name, string $field, int $buckets = null, string $format = null)
