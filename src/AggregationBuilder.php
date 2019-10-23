@@ -149,9 +149,9 @@ class AggregationBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $bucket
-     * @param bool   $anonymous
-     * @param callable[]  $callbacks
+     * @param string     $bucket
+     * @param bool       $anonymous
+     * @param callable[] $callbacks
      *
      * @return $this
      */
@@ -170,7 +170,7 @@ class AggregationBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $bucket
+     * @param string     $bucket
      * @param callable[] $callbacks
      *
      * @return $this
