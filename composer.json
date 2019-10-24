@@ -12,14 +12,17 @@
     "require": {
         "ongr/elasticsearch-dsl": "^7.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0"
+    },
     "autoload": {
         "psr-4": {
             "Runner\\EsqBuilder\\": "src/"
         }
     },
-    "require-dev": {
-        "symfony/var-dumper": "^4.3",
-        "phpdocumentor/reflection-docblock": "^4.3",
-        "elasticsearch/elasticsearch": "^7.0"
+    "autoload-dev": {
+        "psr-4": {
+            "Runner\\EsqBuilder\\Tests\\": "tests/"
+        }
     }
 }
