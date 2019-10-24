@@ -18,6 +18,8 @@ use ONGR\ElasticsearchDSL\SearchEndpoint\QueryEndpoint;
 use ONGR\ElasticsearchDSL\SearchEndpoint\SearchEndpointInterface;
 use Runner\EsqBuilder\Contracts\BuilderInterface;
 use Runner\EsqBuilder\Factories\QueryFactory;
+use Runner\EsqBuilder\InnerHit\NestedInnerHit;
+use Runner\EsqBuilder\InnerHit\ParentInnerHit;
 
 /**
  * Class QueryBuilder.
@@ -61,15 +63,29 @@ class QueryBuilder implements BuilderInterface
         $this->endpoint = new QueryEndpoint();
     }
 
+    /**
+     * @return SearchEndpointInterface
+     */
     public function getSearchEndpoint(): SearchEndpointInterface
     {
         return $this->endpoint;
     }
 
+    /**
+     * @param string $boolType
+     * @param string $type
+     * @param array $arguments
+     * @return $this
+     */
     public function where($boolType, $type, array $arguments = []): self
     {
         if ('bool' === $type) {
             return $this->bool($arguments[0], $boolType);
+        }
+
+        if (method_exists($this, $type)) {
+            $arguments[] = $boolType;
+            return $this->$type(...$arguments);
         }
 
         if (2 === count($arguments) && is_array($arguments[0]) && is_callable($arguments[1])) {
@@ -82,6 +98,11 @@ class QueryBuilder implements BuilderInterface
         return $this;
     }
 
+    /**
+     * @param callable $callback
+     * @param string $type
+     * @return $this
+     */
     public function bool(callable $callback, $type = BoolQuery::MUST): self
     {
         $callback($query = new static());
@@ -91,6 +112,12 @@ class QueryBuilder implements BuilderInterface
         return $this;
     }
 
+    /**
+     * @param array $parameters
+     * @param callable $callback
+     * @param string $boolType
+     * @return $this
+     */
     public function constantScore(array $parameters, callable $callback, $boolType = BoolQuery::MUST): self
     {
         $callback($query = new static());
@@ -103,6 +130,12 @@ class QueryBuilder implements BuilderInterface
         return $this;
     }
 
+    /**
+     * @param array $parameters
+     * @param array $queries
+     * @param string $boolType
+     * @return $this
+     */
     public function disMax(array $parameters, array $queries, $boolType = BoolQuery::MUST): self
     {
         $query = new DisMaxQuery($parameters);
@@ -116,6 +149,12 @@ class QueryBuilder implements BuilderInterface
         return $this;
     }
 
+    /**
+     * @param array $parameters
+     * @param callable $callback
+     * @param string $boolType
+     * @return $this
+     */
     public function functionScore(array $parameters, callable $callback, $boolType = BoolQuery::MUST): self
     {
         $query = $this->runNestedQuery($callback);
@@ -128,6 +167,13 @@ class QueryBuilder implements BuilderInterface
         return $this;
     }
 
+    /**
+     * @param string $type
+     * @param array $parameters
+     * @param callable $callback
+     * @param string $boolType
+     * @return $this
+     */
     public function hasChild($type, array $parameters, callable $callback, $boolType = BoolQuery::MUST)
     {
         $query = $this->runNestedQuery($callback);
@@ -140,6 +186,13 @@ class QueryBuilder implements BuilderInterface
         return $this;
     }
 
+    /**
+     * @param string $type
+     * @param array $parameters
+     * @param callable $callback
+     * @param string $boolType
+     * @return $this
+     */
     public function hasParent($type, array $parameters, callable $callback, $boolType = BoolQuery::MUST)
     {
         $query = $this->runNestedQuery($callback);
@@ -152,6 +205,13 @@ class QueryBuilder implements BuilderInterface
         return $this;
     }
 
+    /**
+     * @param string $path
+     * @param array $parameters
+     * @param callable $callback
+     * @param string $boolType
+     * @return $this
+     */
     public function nested($path, array $parameters, callable $callback, $boolType = BoolQuery::MUST)
     {
         $query = $this->runNestedQuery($callback);
@@ -164,6 +224,43 @@ class QueryBuilder implements BuilderInterface
         return $this;
     }
 
+    /**
+     * @param string $name
+     * @param string $path
+     * @param callable $callback
+     * @param string $boolType
+     * @return $this
+     */
+    public function nestedInnerHit($name, $path, callable $callback, $boolType = BoolQuery::MUST)
+    {
+        call_user_func($callback, $builder = new SearchBuilder());
+
+        $this->endpoint->addToBool(new NestedInnerHit($name, $path, $builder), $boolType);
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param string $path
+     * @param callable $callback
+     * @param string $boolType
+     * @return $this
+     */
+    public function parentInnerHit($name, $path, callable $callback, $boolType = BoolQuery::MUST)
+    {
+        call_user_func($callback, $builder = new SearchBuilder());
+
+        $this->endpoint->addToBool(new ParentInnerHit($name, $path, $builder), $boolType);
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @return $this
+     */
     public function __call($name, $arguments)
     {
         if (!$expression = $this->parseExpression($name)) {
@@ -198,15 +295,18 @@ class QueryBuilder implements BuilderInterface
     {
         'mustNot' === substr($name, 0, 7) && ($name = str_replace('mustNot', 'must_not', $name));
 
-        if (
-            0 === preg_match('/^(?<type>must|must_not|should|filter)?(?<clause>[A-Za-z]+)$/', $name, $match)
-            || !QueryFactory::has($match['clause'])
-        ) {
+        if (0 === preg_match('/^(?<type>must|must_not|should|filter)?(?<clause>[A-Za-z]+)$/', $name, $match)) {
+            return [];
+        }
+
+        $clause = lcfirst($match['clause']);
+
+        if (!QueryFactory::has($clause) && !method_exists($this, $clause)) {
             return [];
         }
 
         return [
-            lcfirst($match['clause']), $match['type'] ?: BoolQuery::MUST,
+            $clause, $match['type'] ?: BoolQuery::MUST,
         ];
     }
 

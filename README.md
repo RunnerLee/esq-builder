@@ -99,5 +99,46 @@ $search
     });
 ```
 
+##### Sort
+
+```php
+<?php
+
+use Runner\EsqBuilder\QueryBuilder;
+
+$search
+    ->sort()
+    ->fieldSort(
+        'createdTime',
+        'desc',
+        [],
+        $search->sort()->createdNestedSort('aaa', [], function (QueryBuilder $builder) {
+            $builder->term('foo', 'bar');
+        })
+    );
+```
+
+输出
+
+```json
+{
+    "sort": [
+        {
+            "createdTime": {
+                "order": "desc",
+                "nested": {
+                    "path": "aaa",
+                    "filter": {
+                        "term": {
+                            "foo": "bar"
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
+```
+
 
 

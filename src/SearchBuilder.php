@@ -10,6 +10,7 @@ namespace Runner\EsqBuilder;
 use ONGR\ElasticsearchDSL\SearchEndpoint\AggregationsEndpoint;
 use ONGR\ElasticsearchDSL\SearchEndpoint\HighlightEndpoint;
 use ONGR\ElasticsearchDSL\SearchEndpoint\QueryEndpoint;
+use ONGR\ElasticsearchDSL\SearchEndpoint\SortEndpoint;
 use Runner\EsqBuilder\Contracts\BuilderInterface;
 
 /**
@@ -18,6 +19,7 @@ use Runner\EsqBuilder\Contracts\BuilderInterface;
  * @method QueryBuilder       query()
  * @method AggregationBuilder aggregations()
  * @method HighlightBuilder highlight()
+ * @method SortBuilder sort()
  * @method SearchBuilder setFrom($from)
  * @method SearchBuilder setSize($size)
  * @method SearchBuilder setSource($source)
@@ -42,6 +44,7 @@ class SearchBuilder
         QueryEndpoint::NAME        => QueryBuilder::class,
         AggregationsEndpoint::NAME => AggregationBuilder::class,
         HighlightEndpoint::NAME    => HighlightBuilder::class,
+        SortEndpoint::NAME => SortBuilder::class,
     ];
 
     /**
@@ -69,6 +72,18 @@ class SearchBuilder
         }
 
         return $this->builders[$name];
+    }
+
+    public function getBuilders()
+    {
+        return $this->builders;
+    }
+
+    public function getParameters()
+    {
+        return array_filter($this->parameters, function ($value) {
+            return null !== $value;
+        });
     }
 
     public function setParameter($name, $value)
