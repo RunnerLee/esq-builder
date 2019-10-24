@@ -74,7 +74,8 @@ class QueryBuilder implements BuilderInterface
     /**
      * @param string $boolType
      * @param string $type
-     * @param array $arguments
+     * @param array  $arguments
+     *
      * @return $this
      */
     public function where($boolType, $type, array $arguments = []): self
@@ -85,6 +86,7 @@ class QueryBuilder implements BuilderInterface
 
         if (method_exists($this, $type)) {
             $arguments[] = $boolType;
+
             return $this->$type(...$arguments);
         }
 
@@ -100,7 +102,8 @@ class QueryBuilder implements BuilderInterface
 
     /**
      * @param callable $callback
-     * @param string $type
+     * @param string   $type
+     *
      * @return $this
      */
     public function bool(callable $callback, $type = BoolQuery::MUST): self
@@ -113,9 +116,10 @@ class QueryBuilder implements BuilderInterface
     }
 
     /**
-     * @param array $parameters
+     * @param array    $parameters
      * @param callable $callback
-     * @param string $boolType
+     * @param string   $boolType
+     *
      * @return $this
      */
     public function constantScore(array $parameters, callable $callback, $boolType = BoolQuery::MUST): self
@@ -131,9 +135,10 @@ class QueryBuilder implements BuilderInterface
     }
 
     /**
-     * @param array $parameters
-     * @param array $queries
+     * @param array  $parameters
+     * @param array  $queries
      * @param string $boolType
+     *
      * @return $this
      */
     public function disMax(array $parameters, array $queries, $boolType = BoolQuery::MUST): self
@@ -150,9 +155,10 @@ class QueryBuilder implements BuilderInterface
     }
 
     /**
-     * @param array $parameters
+     * @param array    $parameters
      * @param callable $callback
-     * @param string $boolType
+     * @param string   $boolType
+     *
      * @return $this
      */
     public function functionScore(array $parameters, callable $callback, $boolType = BoolQuery::MUST): self
@@ -168,10 +174,11 @@ class QueryBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $type
-     * @param array $parameters
+     * @param string   $type
+     * @param array    $parameters
      * @param callable $callback
-     * @param string $boolType
+     * @param string   $boolType
+     *
      * @return $this
      */
     public function hasChild($type, array $parameters, callable $callback, $boolType = BoolQuery::MUST)
@@ -187,10 +194,11 @@ class QueryBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $type
-     * @param array $parameters
+     * @param string   $type
+     * @param array    $parameters
      * @param callable $callback
-     * @param string $boolType
+     * @param string   $boolType
+     *
      * @return $this
      */
     public function hasParent($type, array $parameters, callable $callback, $boolType = BoolQuery::MUST)
@@ -206,10 +214,11 @@ class QueryBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $path
-     * @param array $parameters
+     * @param string   $path
+     * @param array    $parameters
      * @param callable $callback
-     * @param string $boolType
+     * @param string   $boolType
+     *
      * @return $this
      */
     public function nested($path, array $parameters, callable $callback, $boolType = BoolQuery::MUST)
@@ -225,10 +234,11 @@ class QueryBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $name
-     * @param string $path
+     * @param string   $name
+     * @param string   $path
      * @param callable $callback
-     * @param string $boolType
+     * @param string   $boolType
+     *
      * @return $this
      */
     public function nestedInnerHit($name, $path, callable $callback, $boolType = BoolQuery::MUST)
@@ -241,10 +251,11 @@ class QueryBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $name
-     * @param string $path
+     * @param string   $name
+     * @param string   $path
      * @param callable $callback
-     * @param string $boolType
+     * @param string   $boolType
+     *
      * @return $this
      */
     public function parentInnerHit($name, $path, callable $callback, $boolType = BoolQuery::MUST)
@@ -258,7 +269,8 @@ class QueryBuilder implements BuilderInterface
 
     /**
      * @param string $name
-     * @param array $arguments
+     * @param array  $arguments
+     *
      * @return $this
      */
     public function __call($name, $arguments)

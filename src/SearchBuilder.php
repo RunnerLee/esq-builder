@@ -44,7 +44,7 @@ class SearchBuilder
         QueryEndpoint::NAME        => QueryBuilder::class,
         AggregationsEndpoint::NAME => AggregationBuilder::class,
         HighlightEndpoint::NAME    => HighlightBuilder::class,
-        SortEndpoint::NAME => SortBuilder::class,
+        SortEndpoint::NAME         => SortBuilder::class,
     ];
 
     /**
