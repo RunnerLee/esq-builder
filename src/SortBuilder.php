@@ -23,10 +23,11 @@ class SortBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $field
-     * @param string $order
-     * @param array $parameters
+     * @param string          $field
+     * @param string          $order
+     * @param array           $parameters
      * @param NestedSort|null $nestedSort
+     *
      * @return $this
      */
     public function fieldSort($field, $order, array $parameters = [], NestedSort $nestedSort = null)
@@ -43,10 +44,11 @@ class SortBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $path
-     * @param array $parameters
-     * @param callable|null $filter
+     * @param string          $path
+     * @param array           $parameters
+     * @param callable|null   $filter
      * @param NestedSort|null $nestedSort
+     *
      * @return NestedSort
      */
     public function createdNestedSort(

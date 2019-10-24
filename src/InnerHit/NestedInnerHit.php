@@ -36,7 +36,7 @@ class NestedInnerHit implements NamedBuilderInterface
 
         $out = [
             $this->getPathType() => [
-                $this->path => $out ,
+                $this->path => $out,
             ],
         ];
 
@@ -52,7 +52,7 @@ class NestedInnerHit implements NamedBuilderInterface
     }
 
     /**
-     * Returns 'path' for nested and 'type' for parent inner hits
+     * Returns 'path' for nested and 'type' for parent inner hits.
      *
      * @return null|string
      */
