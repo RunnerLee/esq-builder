@@ -91,10 +91,10 @@ class GeoQueryBuilderTest extends TestCase
             'geo_shape' => [
                 'location' => [
                     'shape' => [
-                        'type' => 'envelope',
+                        'type'        => 'envelope',
                         'coordinates' => [[13, 53], [14, 52]],
                     ],
-                    'relation' => 'intersects'
+                    'relation' => 'intersects',
                 ],
                 'param1' => 'value1',
             ],
@@ -118,12 +118,12 @@ class GeoQueryBuilderTest extends TestCase
             'geo_shape' => [
                 'location' => [
                     'indexed_shape' => [
-                        'id' => 'DEU',
-                        'type' => 'countries',
+                        'id'    => 'DEU',
+                        'type'  => 'countries',
                         'index' => 'shapes',
-                        'path' => 'location',
+                        'path'  => 'location',
                     ],
-                    'relation' => 'within'
+                    'relation' => 'within',
                 ],
                 'param1' => 'value1',
             ],
@@ -131,7 +131,6 @@ class GeoQueryBuilderTest extends TestCase
 
         $this->assertEquals($expected, $this->query->toArray());
     }
-
 
     /**
      * @return array
@@ -149,7 +148,7 @@ class GeoQueryBuilderTest extends TestCase
                 ['parameter' => 'value'],
                 [
                     'location' => [
-                        'top_left' => ['lat' => 40.73, 'lon' => -74.1],
+                        'top_left'     => ['lat' => 40.73, 'lon' => -74.1],
                         'bottom_right' => ['lat' => 40.01, 'lon' => -71.12],
                     ],
                     'parameter' => 'value',
@@ -160,12 +159,12 @@ class GeoQueryBuilderTest extends TestCase
                 'location',
                 [
                     'bottom_right' => ['lat' => 40.01, 'lon' => -71.12],
-                    'top_left' => ['lat' => 40.73, 'lon' => -74.1],
+                    'top_left'     => ['lat' => 40.73, 'lon' => -74.1],
                 ],
                 ['parameter' => 'value'],
                 [
                     'location' => [
-                        'top_left' => ['lat' => 40.73, 'lon' => -74.1],
+                        'top_left'     => ['lat' => 40.73, 'lon' => -74.1],
                         'bottom_right' => ['lat' => 40.01, 'lon' => -71.12],
                     ],
                     'parameter' => 'value',
@@ -178,10 +177,10 @@ class GeoQueryBuilderTest extends TestCase
                 ['parameter' => 'value'],
                 [
                     'location' => [
-                        'top' => 40.73,
-                        'left' => -74.1,
+                        'top'    => 40.73,
+                        'left'   => -74.1,
                         'bottom' => 40.01,
-                        'right' => -71.12,
+                        'right'  => -71.12,
                     ],
                     'parameter' => 'value',
                 ],
@@ -191,18 +190,18 @@ class GeoQueryBuilderTest extends TestCase
                 'location',
                 [
                     // out of order
-                    'right' => -71.12,
+                    'right'  => -71.12,
                     'bottom' => 40.01,
-                    'top' => 40.73,
-                    'left' => -74.1
+                    'top'    => 40.73,
+                    'left'   => -74.1,
                 ],
                 ['parameter' => 'value'],
                 [
                     'location' => [
-                        'top' => 40.73,
-                        'left' => -74.1,
+                        'top'    => 40.73,
+                        'left'   => -74.1,
                         'bottom' => 40.01,
-                        'right' => -71.12,
+                        'right'  => -71.12,
                     ],
                     'parameter' => 'value',
                 ],
@@ -225,9 +224,9 @@ class GeoQueryBuilderTest extends TestCase
             [
                 'location',
                 '20km',
-                ['lat' => 0, 'lon' => 0],
+                ['lat'       => 0, 'lon' => 0],
                 ['parameter' => 'value'],
-                ['distance' => '20km', 'location' => ['lat' => 0, 'lon' => 0], 'parameter' => 'value'],
+                ['distance'  => '20km', 'location' => ['lat' => 0, 'lon' => 0], 'parameter' => 'value'],
             ],
         ];
     }
@@ -260,7 +259,7 @@ class GeoQueryBuilderTest extends TestCase
                 [],
                 ['parameter' => 'value'],
                 [
-                    'location' => ['points' => []],
+                    'location'  => ['points' => []],
                     'parameter' => 'value',
                 ],
             ],

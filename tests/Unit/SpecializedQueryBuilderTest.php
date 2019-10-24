@@ -25,7 +25,7 @@ class SpecializedQueryBuilderTest extends TestCase
         $expected = [
             'more_like_this' => [
                 'fields' => ['title', 'description'],
-                'like' => 'this is a test',
+                'like'   => 'this is a test',
             ],
         ];
 
@@ -60,7 +60,7 @@ class SpecializedQueryBuilderTest extends TestCase
         $expected = [
             'template' => [
                 'inline' => $inline,
-                'params' => $params
+                'params' => $params,
             ],
         ];
         $this->assertEquals($expected, $this->query->toArray());
@@ -73,7 +73,7 @@ class SpecializedQueryBuilderTest extends TestCase
         $this->query->template($file, null, $params);
         $expected = [
             'template' => [
-                'file' => $file,
+                'file'   => $file,
                 'params' => $params,
             ],
         ];

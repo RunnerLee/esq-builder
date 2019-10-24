@@ -27,8 +27,9 @@ class NestedInnerHit implements NamedBuilderInterface
 
     /**
      * NestedInnerHit constructor.
-     * @param string $name
-     * @param string $path
+     *
+     * @param string             $name
+     * @param string             $path
      * @param SearchBuilder|null $search
      */
     public function __construct($name, $path, SearchBuilder $search = null)
