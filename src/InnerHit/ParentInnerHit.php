@@ -10,7 +10,7 @@ namespace Runner\EsqBuilder\InnerHit;
 class ParentInnerHit extends NestedInnerHit
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getType()
     {

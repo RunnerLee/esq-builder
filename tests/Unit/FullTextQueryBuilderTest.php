@@ -25,7 +25,7 @@ class FullTextQueryBuilderTest extends TestCase
         $expected = [
             'common' => [
                 'body' => [
-                    'query' => 'this is bonsai cool',
+                    'query'            => 'this is bonsai cool',
                     'cutoff_frequency' => 0.01,
                 ],
             ],
@@ -80,7 +80,7 @@ class FullTextQueryBuilderTest extends TestCase
         $this->query->multiMatch(['message', 'title'], 'this is a test');
         $expected = [
             'multi_match' => [
-                'query' => 'this is a test',
+                'query'  => 'this is a test',
                 'fields' => ['message', 'title'],
             ],
         ];
@@ -106,7 +106,7 @@ class FullTextQueryBuilderTest extends TestCase
         $expected = [
             'query_string' => [
                 'query' => 'this AND that OR thus',
-            ]
+            ],
         ];
 
         $this->assertEquals($expected, $this->query->toArray());
