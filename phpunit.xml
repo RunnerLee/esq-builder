@@ -15,6 +15,9 @@
         <testsuite name="All">
             <directory>./tests/</directory>
         </testsuite>
+        <testsuite name="Unit">
+            <directory>./tests/Unit/</directory>
+        </testsuite>
     </testsuites>
 
     <filter>
@@ -22,7 +25,4 @@
             <directory>./src</directory>
         </whitelist>
     </filter>
-    <logging>
-        <log type="coverage-text" target="php://stdout" showOnlySummary="true"/>
-    </logging>
 </phpunit>

@@ -15,10 +15,22 @@ class NestedInnerHit implements NamedBuilderInterface
 {
     use NameAwareTrait;
 
+    /**
+     * @var SearchBuilder
+     */
     protected $search;
 
+    /**
+     * @var string
+     */
     protected $path;
 
+    /**
+     * NestedInnerHit constructor.
+     * @param string $name
+     * @param string $path
+     * @param SearchBuilder|null $search
+     */
     public function __construct($name, $path, SearchBuilder $search = null)
     {
         $this->name = $name;

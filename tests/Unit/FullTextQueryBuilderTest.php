@@ -5,12 +5,12 @@
  * @time: 2019-10
  */
 
-namespace Runner\EsqBuilder\Tests;
+namespace Runner\EsqBuilder\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Runner\EsqBuilder\QueryBuilder;
 
-class QueryBuilderTest extends TestCase
+class FullTextQueryBuilderTest extends TestCase
 {
     protected $query;
 
@@ -77,6 +77,50 @@ class QueryBuilderTest extends TestCase
 
     public function testMultiMatch()
     {
+        $this->query->multiMatch(['message', 'title'], 'this is a test');
+        $expected = [
+            'multi_match' => [
+                'query' => 'this is a test',
+                'fields' => ['message', 'title'],
+            ],
+        ];
 
+        $this->assertEquals($expected, $this->query->toArray());
+    }
+
+    public function testMultiMatchWithNoFields()
+    {
+        $this->query->multiMatch([], 'this is a test');
+        $expected = [
+            'multi_match' => [
+                'query' => 'this is a test',
+            ],
+        ];
+
+        $this->assertEquals($expected, $this->query->toArray());
+    }
+
+    public function testQueryString()
+    {
+        $this->query->queryString('this AND that OR thus');
+        $expected = [
+            'query_string' => [
+                'query' => 'this AND that OR thus',
+            ]
+        ];
+
+        $this->assertEquals($expected, $this->query->toArray());
+    }
+
+    public function testSimpleQueryString()
+    {
+        $this->query->simpleQueryString('"fried eggs" +(eggplant | potato) -frittata');
+        $expected = [
+            'simple_query_string' => [
+                'query' => '"fried eggs" +(eggplant | potato) -frittata',
+            ],
+        ];
+
+        $this->assertEquals($expected, $this->query->toArray());
     }
 }
