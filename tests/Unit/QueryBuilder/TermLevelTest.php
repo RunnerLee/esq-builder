@@ -75,7 +75,7 @@ class TermLevelTest extends TestCase
                     'gte' => 10,
                     'lte' => 20,
                 ],
-            ]
+            ],
         ];
 
         $this->assertEquals($expected, $this->query->toArray());
@@ -122,7 +122,7 @@ class TermLevelTest extends TestCase
     {
         $this->query->type('foo');
         $expectedResult = [
-            'type' => ['value' => 'foo']
+            'type' => ['value' => 'foo'],
         ];
 
         $this->assertEquals($expectedResult, $this->query->toArray());

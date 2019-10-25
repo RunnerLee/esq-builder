@@ -27,7 +27,7 @@ class QueryBuilderTest extends TestCase
             ->shouldTerm('foo', 'bar3')
             ->shouldHasChild(
                 'test_type',
-                ['score_mode' => 'min',],
+                ['score_mode' => 'min'],
                 function (QueryBuilder $builder) {
                     $builder->term('foo', 'bar');
                 }
@@ -44,49 +44,49 @@ class QueryBuilderTest extends TestCase
             'bool' => [
                 'must' => [
                     [
-                        'term' => ['foo' => 'bar1',],
+                        'term' => ['foo' => 'bar1'],
                     ],
                     [
-                        'term' => ['foo' => 'bar2',],
+                        'term' => ['foo' => 'bar2'],
                     ],
                 ],
                 'should' => [
                     [
-                        'term' => ['foo' => 'bar3',],
+                        'term' => ['foo' => 'bar3'],
                     ],
                     [
                         'has_child' => [
-                            'type' => 'test_type',
+                            'type'       => 'test_type',
                             'score_mode' => 'min',
-                            'query' => [
+                            'query'      => [
                                 'term' => [
                                     'foo' => 'bar',
                                 ],
                             ],
                         ],
-                    ]
+                    ],
                 ],
                 'must_not' => [
                     [
-                        'term' => ['foo' => 'bar4',],
+                        'term' => ['foo' => 'bar4'],
                     ],
                 ],
                 'filter' => [
                     [
-                        'term' => ['foo' => 'bar5',],
+                        'term' => ['foo' => 'bar5'],
                     ],
                     [
                         'bool' => [
                             'should' => [
                                 [
-                                    'term' => ['foo' => 'bar1',],
+                                    'term' => ['foo' => 'bar1'],
                                 ],
                                 [
-                                    'term' => ['foo' => 'bar2',],
-                                ]
+                                    'term' => ['foo' => 'bar2'],
+                                ],
                             ],
                         ],
-                    ]
+                    ],
                 ],
             ],
         ];

@@ -33,8 +33,8 @@ class CompoundTest extends TestCase
 
         $expected = [
             'boosting' => [
-                'positive' => ['term' => ['foo' => 'bar1']],
-                'negative' => ['term' => ['foo' => 'bar2']],
+                'positive'       => ['term' => ['foo' => 'bar1']],
+                'negative'       => ['term' => ['foo' => 'bar2']],
                 'negative_boost' => 0.2,
             ],
         ];
@@ -51,7 +51,7 @@ class CompoundTest extends TestCase
         $expected = [
             'constant_score' => [
                 'filter' => [
-                    'term' => ['foo' => 'bar']
+                    'term' => ['foo' => 'bar'],
                 ],
                 'boost' => 1.2,
             ],
@@ -68,7 +68,7 @@ class CompoundTest extends TestCase
             },
             function (QueryBuilder $builder) {
                 $builder->term('foo', 'bar2');
-            }
+            },
         ]);
 
         $expected = [
