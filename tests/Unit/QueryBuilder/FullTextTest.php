@@ -5,12 +5,12 @@
  * @time: 2019-10
  */
 
-namespace Runner\EsqBuilder\Tests\Unit;
+namespace Runner\EsqBuilder\Tests\Unit\QueryBuilder;
 
 use PHPUnit\Framework\TestCase;
 use Runner\EsqBuilder\QueryBuilder;
 
-class FullTextQueryBuilderTest extends TestCase
+class FullTextTest extends TestCase
 {
     protected $query;
 

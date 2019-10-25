@@ -5,13 +5,13 @@
  * @time: 2019-10
  */
 
-namespace Runner\EsqBuilder\Tests\Unit;
+namespace Runner\EsqBuilder\Tests\Unit\QueryBuilder;
 
 use ONGR\ElasticsearchDSL\Query\Geo\GeoShapeQuery;
 use PHPUnit\Framework\TestCase;
 use Runner\EsqBuilder\QueryBuilder;
 
-class GeoQueryBuilderTest extends TestCase
+class GeoTest extends TestCase
 {
     protected $query;
 

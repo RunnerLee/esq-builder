@@ -8,6 +8,7 @@
 namespace Runner\EsqBuilder;
 
 use ONGR\ElasticsearchDSL\Query\Compound\BoolQuery;
+use ONGR\ElasticsearchDSL\Query\Compound\BoostingQuery;
 use ONGR\ElasticsearchDSL\Query\Compound\ConstantScoreQuery;
 use ONGR\ElasticsearchDSL\Query\Compound\DisMaxQuery;
 use ONGR\ElasticsearchDSL\Query\Compound\FunctionScoreQuery;
@@ -102,15 +103,29 @@ class QueryBuilder implements BuilderInterface
 
     /**
      * @param callable $callback
-     * @param string   $type
+     * @param string   $boolType
      *
      * @return $this
      */
-    public function bool(callable $callback, $type = BoolQuery::MUST): self
+    public function bool(callable $callback, $boolType = BoolQuery::MUST): self
     {
-        $callback($query = new static());
+        $query = $this->runNestedQuery($callback);
 
-        $this->endpoint->addToBool($query->getSearchEndpoint()->getBool(), $type);
+        $this->endpoint->addToBool($query->getBool(), $boolType);
+
+        return $this;
+    }
+
+    public function boosting($negativeBoost, callable $positiveBuilder, callable $negativeBuilder, $boolType = BoolQuery::MUST)
+    {
+        $this->endpoint->addToBool(
+            new BoostingQuery(
+                $this->runNestedQuery($positiveBuilder)->getBool(),
+                $this->runNestedQuery($negativeBuilder)->getBool(),
+                $negativeBoost
+            ),
+            $boolType
+        );
 
         return $this;
     }
@@ -124,10 +139,8 @@ class QueryBuilder implements BuilderInterface
      */
     public function constantScore(array $parameters, callable $callback, $boolType = BoolQuery::MUST): self
     {
-        $callback($query = new static());
-
         $this->endpoint->addToBool(
-            new ConstantScoreQuery($query->getSearchEndpoint()->getBool(), $parameters),
+            new ConstantScoreQuery($this->runNestedQuery($callback)->getBool(), $parameters),
             $boolType
         );
 
@@ -136,7 +149,7 @@ class QueryBuilder implements BuilderInterface
 
     /**
      * @param array  $parameters
-     * @param array  $queries
+     * @param callable[]  $queries
      * @param string $boolType
      *
      * @return $this
@@ -145,8 +158,8 @@ class QueryBuilder implements BuilderInterface
     {
         $query = new DisMaxQuery($parameters);
 
-        foreach ($queries as $item) {
-            $query->addQuery($item);
+        foreach ($queries as $callback) {
+            $query->addQuery($this->runNestedQuery($callback)->getBool());
         }
 
         $this->endpoint->addToBool($query, $boolType);
@@ -161,17 +174,17 @@ class QueryBuilder implements BuilderInterface
      *
      * @return $this
      */
-    public function functionScore(array $parameters, callable $callback, $boolType = BoolQuery::MUST): self
-    {
-        $query = $this->runNestedQuery($callback);
-
-        $this->endpoint->addToBool(
-            new FunctionScoreQuery($query->getSearchEndpoint()->getBool(), $parameters),
-            $boolType
-        );
-
-        return $this;
-    }
+//    public function functionScore(array $parameters, callable $callback, $boolType = BoolQuery::MUST): self
+//    {
+//        $query = $this->runNestedQuery($callback);
+//
+//        $this->endpoint->addToBool(
+//            new FunctionScoreQuery($query->getBool(), $parameters),
+//            $boolType
+//        );
+//
+//        return $this;
+//    }
 
     /**
      * @param string   $type
@@ -186,7 +199,7 @@ class QueryBuilder implements BuilderInterface
         $query = $this->runNestedQuery($callback);
 
         $this->endpoint->addToBool(
-            new HasChildQuery($type, $query->getSearchEndpoint()->getBool(), $parameters),
+            new HasChildQuery($type, $query->getBool(), $parameters),
             $boolType
         );
 
@@ -206,7 +219,7 @@ class QueryBuilder implements BuilderInterface
         $query = $this->runNestedQuery($callback);
 
         $this->endpoint->addToBool(
-            new HasParentQuery($type, $query->getSearchEndpoint()->getBool(), $parameters),
+            new HasParentQuery($type, $query->getBool(), $parameters),
             $boolType
         );
 
@@ -226,7 +239,7 @@ class QueryBuilder implements BuilderInterface
         $query = $this->runNestedQuery($callback);
 
         $this->endpoint->addToBool(
-            new NestedQuery($path, $query->getSearchEndpoint()->getBool(), $parameters),
+            new NestedQuery($path, $query->getBool(), $parameters),
             $boolType
         );
 
@@ -328,6 +341,14 @@ class QueryBuilder implements BuilderInterface
     public function toArray()
     {
         return $this->endpoint->getBool()->toArray();
+    }
+
+    /**
+     * @return BoolQuery
+     */
+    public function getBool()
+    {
+        return $this->endpoint->getBool();
     }
 
     /**
