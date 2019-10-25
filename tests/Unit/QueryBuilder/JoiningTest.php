@@ -23,7 +23,7 @@ class JoiningTest extends TestCase
     {
         $this->query->hasChild(
             'test_type',
-            ['score_mode' => 'min',],
+            ['score_mode' => 'min'],
             function (QueryBuilder $builder) {
                 $builder->term('foo', 'bar');
             }
@@ -31,9 +31,9 @@ class JoiningTest extends TestCase
 
         $expected = [
             'has_child' => [
-                'type' => 'test_type',
+                'type'       => 'test_type',
                 'score_mode' => 'min',
-                'query' => [
+                'query'      => [
                     'term' => [
                         'foo' => 'bar',
                     ],
@@ -53,8 +53,8 @@ class JoiningTest extends TestCase
         $expected = [
             'has_parent' => [
                 'parent_type' => 'test_type',
-                'score' => true,
-                'query' => [
+                'score'       => true,
+                'query'       => [
                     'term' => [
                         'foo' => 'bar',
                     ],
@@ -83,13 +83,13 @@ class JoiningTest extends TestCase
     public function testParentId()
     {
         $this->query->parentId(1, 'test-child', [
-            'ignore_unmapped' => true
+            'ignore_unmapped' => true,
         ]);
 
         $except = [
             'parent_id' => [
-                'id' => 1,
-                'type' => 'test-child',
+                'id'              => 1,
+                'type'            => 'test-child',
                 'ignore_unmapped' => true,
             ],
         ];
@@ -98,7 +98,6 @@ class JoiningTest extends TestCase
 
     public function getNestedQueryDataProvider()
     {
-
         $query = [
             'terms' => [
                 'foo' => 'bar',
@@ -115,10 +114,10 @@ class JoiningTest extends TestCase
                 'product.sub_item',
                 ['_cache' => true, '_name' => 'named_result'],
                 [
-                    'path' => 'product.sub_item',
-                    'query' => $query,
+                    'path'   => 'product.sub_item',
+                    'query'  => $query,
                     '_cache' => true,
-                    '_name' => 'named_result',
+                    '_name'  => 'named_result',
                 ],
             ],
         ];

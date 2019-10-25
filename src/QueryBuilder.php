@@ -148,9 +148,9 @@ class QueryBuilder implements BuilderInterface
     }
 
     /**
-     * @param array  $parameters
-     * @param callable[]  $queries
-     * @param string $boolType
+     * @param array      $parameters
+     * @param callable[] $queries
+     * @param string     $boolType
      *
      * @return $this
      */
