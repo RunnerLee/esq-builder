@@ -7,6 +7,7 @@
 
 namespace Runner\EsqBuilder;
 
+use Elasticsearch\Client;
 use ONGR\ElasticsearchDSL\SearchEndpoint\AggregationsEndpoint;
 use ONGR\ElasticsearchDSL\SearchEndpoint\HighlightEndpoint;
 use ONGR\ElasticsearchDSL\SearchEndpoint\QueryEndpoint;
@@ -40,6 +41,14 @@ class SearchBuilder
      */
     protected $builders = [];
 
+    /**
+     * @var Client|null
+     */
+    protected $client;
+
+    /**
+     * @var array
+     */
     protected $clauses = [
         QueryEndpoint::NAME        => QueryBuilder::class,
         AggregationsEndpoint::NAME => AggregationBuilder::class,
@@ -65,6 +74,10 @@ class SearchBuilder
         'trackTotalHits' => null,
     ];
 
+    /**
+     * @param $name
+     * @return BuilderInterface
+     */
     public function getBuilder($name)
     {
         if (!isset($this->builders[$name])) {
@@ -74,11 +87,17 @@ class SearchBuilder
         return $this->builders[$name];
     }
 
+    /**
+     * @return BuilderInterface[]
+     */
     public function getBuilders()
     {
         return $this->builders;
     }
 
+    /**
+     * @return array
+     */
     public function getParameters()
     {
         return array_filter($this->parameters, function ($value) {
@@ -86,6 +105,11 @@ class SearchBuilder
         });
     }
 
+    /**
+     * @param string $name
+     * @param mixed $value
+     * @return $this
+     */
     public function setParameter($name, $value)
     {
         $this->parameters[$name] = $value;
@@ -93,6 +117,39 @@ class SearchBuilder
         return $this;
     }
 
+    /**
+     * @param Client $client
+     * @return $this
+     */
+    public function setClient(Client $client)
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * @param string $index
+     * @param string $type
+     * @param array $parameters
+     * @return array
+     */
+    public function search($index, $type = '_doc', array $parameters = [])
+    {
+        $parameters = array_merge($parameters, [
+            'index' => $index,
+            'type' => $type,
+            'body' => $this->toArray(),
+        ]);
+
+        return $this->client->search($parameters);
+    }
+
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @return $this|BuilderInterface
+     */
     public function __call($name, $arguments)
     {
         if ('set' === substr($name, 0, 3)) {
