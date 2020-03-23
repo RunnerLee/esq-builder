@@ -76,6 +76,7 @@ class SearchBuilder
 
     /**
      * @param $name
+     *
      * @return BuilderInterface
      */
     public function getBuilder($name)
@@ -107,7 +108,8 @@ class SearchBuilder
 
     /**
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
+     *
      * @return $this
      */
     public function setParameter($name, $value)
@@ -119,6 +121,7 @@ class SearchBuilder
 
     /**
      * @param Client $client
+     *
      * @return $this
      */
     public function setClient(Client $client)
@@ -131,15 +134,16 @@ class SearchBuilder
     /**
      * @param string $index
      * @param string $type
-     * @param array $parameters
+     * @param array  $parameters
+     *
      * @return array
      */
     public function search($index, $type = '_doc', array $parameters = [])
     {
         $parameters = array_merge($parameters, [
             'index' => $index,
-            'type' => $type,
-            'body' => $this->toArray(),
+            'type'  => $type,
+            'body'  => $this->toArray(),
         ]);
 
         return $this->client->search($parameters);
@@ -147,7 +151,8 @@ class SearchBuilder
 
     /**
      * @param string $name
-     * @param array $arguments
+     * @param array  $arguments
+     *
      * @return $this|BuilderInterface
      */
     public function __call($name, $arguments)
