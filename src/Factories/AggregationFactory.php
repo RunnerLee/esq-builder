@@ -30,7 +30,7 @@ class AggregationFactory extends AbstractFactory
         'SignificantText'    => 'Bucketing',
         'Terms'              => 'Bucketing',
 
-//        'Max'         => 'Matrix',
+        //        'Max'         => 'Matrix',
         'Avg'             => 'Metric',
         'Cardinality'     => 'Metric',
         'ExtendedStats'   => 'Metric',
