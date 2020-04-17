@@ -111,11 +111,20 @@ class QueryBuilder implements BuilderInterface
     {
         $query = $this->runNestedQuery($callback);
 
-        $this->endpoint->addToBool($query->getBool(), $boolType);
+        if ($bool = $query->getBool()) {
+            $this->endpoint->addToBool($bool, $boolType);
+        }
 
         return $this;
     }
 
+    /**
+     * @param $negativeBoost
+     * @param callable $positiveBuilder
+     * @param callable $negativeBuilder
+     * @param string $boolType
+     * @return $this
+     */
     public function boosting(
         $negativeBoost,
         callable $positiveBuilder,
