@@ -122,7 +122,8 @@ class QueryBuilder implements BuilderInterface
      * @param $negativeBoost
      * @param callable $positiveBuilder
      * @param callable $negativeBuilder
-     * @param string $boolType
+     * @param string   $boolType
+     *
      * @return $this
      */
     public function boosting(
