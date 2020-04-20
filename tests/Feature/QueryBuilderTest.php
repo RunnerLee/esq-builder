@@ -114,10 +114,27 @@ class QueryBuilderTest extends TestCase
      * @expectedException        \UnexpectedValueException
      * @expectedExceptionMessage The bool operator holy is not supported
      */
-    public function testUnknownBoolType()
+    public function testUnknow´nBoolType()
     {
         $this->query->bool(function (QueryBuilder $builder) {
             $builder->term('foo', 'bar');
         }, 'holy');
+    }
+
+    public function testHasEmptyChildBool()
+    {
+        $this->query->shouldBool(function () {});
+
+        $expect = [
+            'bool' => [
+                'should' => [
+                    [
+                        'bool' => new \stdClass(),
+                    ]
+                ],
+            ],
+        ];
+
+        $this->assertEquals($expect, $this->query->toArray());
     }
 }

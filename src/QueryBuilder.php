@@ -361,7 +361,8 @@ class QueryBuilder implements BuilderInterface
      */
     public function getBool()
     {
-        return $this->endpoint->getBool();
+        // 空 bool 也是有意义的
+        return $this->endpoint->getBool() ?: new BoolQuery();
     }
 
     /**
