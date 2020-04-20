@@ -130,7 +130,7 @@ class QueryBuilderTest extends TestCase
                 'should' => [
                     [
                         'bool' => new \stdClass(),
-                    ]
+                    ],
                 ],
             ],
         ];
