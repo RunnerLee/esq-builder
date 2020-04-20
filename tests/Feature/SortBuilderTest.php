@@ -40,9 +40,9 @@ class SortBuilderTest extends TestCase
             [
                 'oid' => [
                     'order' => 'asc',
-                    'mode' => 'avg',
+                    'mode'  => 'avg',
                 ],
-            ]
+            ],
         ];
 
         $this->assertEquals($expect, $this->builder->toArray());
@@ -57,23 +57,23 @@ class SortBuilderTest extends TestCase
                 $query->term('offer.color', 'blue');
             }
         );
-        $this->builder->fieldSort('offer.price', 'asc', ['mode' => 'avg',], $nested);
+        $this->builder->fieldSort('offer.price', 'asc', ['mode' => 'avg'], $nested);
 
         $expect = [
             [
                 'offer.price' => [
-                    'mode' => 'avg',
-                    'order' => 'asc',
+                    'mode'   => 'avg',
+                    'order'  => 'asc',
                     'nested' => [
-                        'path' => 'offer',
+                        'path'   => 'offer',
                         'filter' => [
                             'term' => [
                                 'offer.color' => 'blue',
                             ],
-                        ]
+                        ],
                     ],
                 ],
-            ]
+            ],
         ];
         $this->assertEquals($expect, $this->builder->toArray());
     }
